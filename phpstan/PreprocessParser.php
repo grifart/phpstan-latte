@@ -29,6 +29,8 @@ class PreprocessParser implements Parser
 			$this->latte->warmupCache($file);
 			$file = $this->latte->getCacheFile($file);
 		}
+
+		// todo: check also all layouts
 		return $this->innerParser->parseFile($file);
 	}
 

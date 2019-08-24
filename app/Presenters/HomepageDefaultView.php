@@ -3,8 +3,10 @@
 namespace App\Presenters;
 
 use App\Model\Post;
+use FlashMessage;
 
 /**
+ * @property FlashMessage[] $flashes
  * @property Post[] $posts
  */
 interface HomepageDefaultView

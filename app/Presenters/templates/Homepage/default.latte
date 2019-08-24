@@ -1,6 +1,16 @@
-{* This is the welcome page, you can delete it *}
+{layout ../@layout.latte}
+
+{type $posts Posts[]}
 
 {block content}
-{foreach $posts as $post}
-	<h1>{$post->getTitle()}</h1>
-{/foreach}
+	{type $posts Posts[]}
+	{foreach $posts as $post}
+		<h1>{$post->getTitle()}</h1>
+		{include #ahoj test=>$post->getTitle()}
+	{/foreach}
+{/block}
+
+{block ahoj}
+	{type $test string}
+	{$test}
+{/block}
