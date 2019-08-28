@@ -1,7 +1,7 @@
 Experiment: Strictly typed Latte files
 ======================================
 
-This is just an experiment. Will evolve in future in something more production-ready.
+This is just an experiment. Will evolve in future into something more production-ready.
 
 ## Stage 1: Add typing into Latte files
 
@@ -20,7 +20,7 @@ phpstan:
 
 ## Stage 2: Connect typing with Presenters and rest of application
 
-Generate interface:
+Generated interface:
 
 ````php
 /**
@@ -49,7 +49,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter {
 
 ## Step 3: Latte and PHP become one thing
 
-Problem with current Latte and template object is, that `Template` type represents all possible templates. What be need is to presenter only template which exactly corresponds to our view.
+Problem with current Latte and template object is, that `Template` type represents all possible templates. What we need is to represent only one particular template file which exactly corresponds to our .latte file.
 
 Another point of view can be, that template is function with following signature:
 
@@ -60,7 +60,7 @@ function HomepageDefaultView(FlashMessage[] $flashes, MainViewDTO $view): string
 }
 ````
 
-This would be easy if we would be able to use functional approach. In PHP this is not possible.
+This would be easy if we would be able to use functional approach (esp. type-safe closing of fn parameter). In PHP this is not possible.
 
 So I ended up with following proposal. Each .latte file will have one `View` file which will declare variables used in global space of this template.
 
@@ -125,7 +125,7 @@ And `homepage.latte`:
 {/define}
 ````
 
-`HomepageView.php`
+`HomepageView.php` (renderable view)
 ````php
 <?php declare(strict_types=1);
 
@@ -200,6 +200,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 
 ## Step 4: Latte becomes really (optionally) strict
+
+Scopes in Latte aren't strict at all. It feels more like everything is available from all places. This is great for small projects, but this breaks reusability and isolation, when you want to build small library of reusable blocks.
 
 ````latte
 {layout none}
