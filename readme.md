@@ -133,7 +133,7 @@ And `homepage.latte`:
 use App\Model\Post;
 use Nette\Bridges\ApplicationLatte\ILatteFactory;
 
-final class HomepageDefaultViewWithLayoutView implements RenderableView
+final class HomepageDefaultView implements RenderableView
 {
 
 	/**
@@ -177,4 +177,22 @@ final class HomepageDefaultViewWithLayoutView implements RenderableView
 	}
 }
 
+````
+
+View can then be used in presenter like this:
+
+````php
+
+final class HomepagePresenter extends Nette\Application\UI\Presenter
+{
+	public function renderDefault()
+	{
+		$this->sendView(
+			new \HomepageDefaultViewWithLayoutView(
+				new \LayoutView($this->getFlashes()),
+				$this->getPosts()
+			)
+		);
+	}
+}
 ````
