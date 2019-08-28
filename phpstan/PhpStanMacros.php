@@ -2,6 +2,7 @@
 
 namespace AppTests\PhpStan;
 
+use App\Core\Latte\TypeMacros;
 use Latte\CompileException;
 use Latte\Compiler;
 use Latte\MacroNode;
@@ -10,31 +11,8 @@ use Latte\MacroTokens;
 use Latte\PhpWriter;
 
 
-class PhpStanMacros extends MacroSet
+class PhpStanMacros extends TypeMacros
 {
 
-	public static function install(Compiler $compiler)
-	{
-		$me = new self($compiler);
-		$me->addMacro('type', [$me, 'macroType']);
-
-		return $me;
-	}
-
-
-	public function macroType(MacroNode $node, PhpWriter $writer)
-	{
-		$tokens = new MacroTokens($node->args . $node->modifiers);
-		$node->modifiers = '';
-
-		$type = $tokens->joinUntil(MacroTokens::T_VARIABLE);
-		$tokens->nextToken();
-		if (!$tokens->isCurrent(MacroTokens::T_VARIABLE)) {
-			throw new CompileException("Unexpected {$tokens->currentValue()}, variable expected");
-		}
-		$variable = $tokens->currentValue();
-
-		return "/** @var $type $variable */ $variable = NULL;";
-	}
 
 }

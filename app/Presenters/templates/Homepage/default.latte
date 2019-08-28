@@ -1,16 +1,27 @@
 {layout ../@layout.latte}
+{*{layout none}*}
+{type App\Model\Post[] $posts}
 
-{type $posts Posts[]}
 
-{block content}
-	{type $posts Posts[]}
+Ahoj před<br>
+
+{define #content}
+	{type App\Model\Post3[] $posts}
+	<h1>block content</h1>
 	{foreach $posts as $post}
 		<h1>{$post->getTitle()}</h1>
 		{include #ahoj test=>$post->getTitle()}
 	{/foreach}
-{/block}
 
-{block ahoj}
-	{type $test string}
-	{$test}
-{/block}
+	{include #ahoj, test=>5}
+{/define}
+
+{define #ahoj}
+	{type int $test}
+	<b>{$test}</b>
+	ahoj z bloku ahoj! <br>
+{/define}
+
+{*{include #ahoj, test=>['test']}*}
+
+Ahoj po

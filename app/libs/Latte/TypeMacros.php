@@ -38,6 +38,14 @@ class TypeMacros extends MacroSet
 		if ($assertFunction === null) {
 			return '';
 		}
-		return "($assertFunction)(" . $variable . ');';
+		$variableName = \substr($variable, 1);
+		$escapedVariableName = \var_export($variableName, true);
+
+		return
+			"/* {type {$node->args}{$node->modifiers}} */\n"
+		  . "/** @var $type $variable */\n"
+		  . "$variable = func_num_args() === 1 ? func_get_arg(0)[$escapedVariableName] : \$this->params[$escapedVariableName];\n"
+		  . "($assertFunction)(" . $variable . ");\n";
+
 	}
 }

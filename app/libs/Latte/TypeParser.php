@@ -39,7 +39,7 @@ class TypeParser
 				assert($type !== null);
 				$type = Reflection::expandClassName($type, $rc);
 			}
-			$tokens->nextToken();
+			$tokens->position++;
 
 			$arrayDepth = 0;
 			while ($tokens->isCurrent(self::T_ITERABLE) ) {

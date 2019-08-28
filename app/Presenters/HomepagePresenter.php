@@ -20,9 +20,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	 * @var Nette\Bridges\ApplicationLatte\ILatteFactory @inject
 	 */
 	public $latteFactory;
-
-	/** @var \HomepageTemplateFactory @inject */
-	public $homepageTemplateFactory;
+//
+//	/** @var \HomepageTemplateFactory @inject */
+//	public $homepageTemplateFactory;
 
 	public function actionDefault() {
 
@@ -35,11 +35,13 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderDefault()
 	{
 
-		$this->sendView(
-			$this->homepageTemplateFactory->createDefault(
-				$this->getPosts()
-			)
-		);
+		$this->template->posts = [];
+
+//		$this->sendView(
+//			$this->homepageTemplateFactory->createDefault(
+//				$this->getPosts()
+//			)
+//		);
 	}
 
 	/** @return Post[] */

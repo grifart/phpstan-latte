@@ -4,7 +4,7 @@
 use App\Model\Post;
 use Nette\Bridges\ApplicationLatte\ILatteFactory;
 
-final class HomepageDefaultView implements RenderableView
+final class HomepageDefaultViewWithLayoutView implements RenderableView
 {
 
 	/**

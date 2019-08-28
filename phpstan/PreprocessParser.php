@@ -26,6 +26,7 @@ class PreprocessParser implements Parser
 	public function parseFile(string $file): array
 	{
 		if (substr($file, -6) === '.latte') {
+			@\unlink($this->latte->getCacheFile($file)); // todo: remove; just to skip Latte Cache!
 			$this->latte->warmupCache($file);
 			$file = $this->latte->getCacheFile($file);
 		}
