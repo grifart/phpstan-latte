@@ -196,3 +196,27 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 }
 ````
+
+
+
+## Step 4: Latte becomes really (optionally) strict
+
+````latte
+{layout none}
+{type App\Model\Post[] $posts}
+
+{block $content}
+	{* $posts type is inherited from this file global space *}
+	{include #myBlock, $posts}
+{/block}
+
+{strictdefine #myBlock, Posts[] $list}
+	{* accessing $posts will end up in error *}
+	<h1>block content</h1>
+	{foreach $list as $post}
+		<h1>{$post->getTitle()}</h1>
+	{/foreach}
+{/strictdefine}
+````
+
+Strict define and strict block will allow to access only variables explicitly passed to them. This will lead to better modularity in Latte code and in more thought full usage of blocs.
